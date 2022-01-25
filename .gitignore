@@ -1,0 +1,6 @@
+#Directory and Folders that has to be ignored
+
+node_modules/
+
+*.zip
+*.rar
