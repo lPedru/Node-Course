@@ -1,8 +1,6 @@
 const express = require('express');
-const cluster = require('cluster');
-const os = require('os');
 
-cluster.schedulingPolicy = cluster.SCHED_RR;
+//cluster.schedulingPolicy = cluster.SCHED_RR;
 
 const app = express();
 
@@ -18,18 +16,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/timer', (req, res) => {
-  delay(9000);
+  delay(4000);
   res.send(`Timer test: ${process.pid}`)
 });
 
-
-if (cluster.isMaster) {
-  console.log('Master has been started...');
-  const NUM_WORKERS = os.cpus().length;
-  for (let i = 0; i < NUM_WORKERS; i++) {
-    cluster.fork();
-  }
-} else {
-  console.log('Worker has been started...');
-  app.listen(3000);
-}
+console.log('Worker has been started...');
+app.listen(3000);
